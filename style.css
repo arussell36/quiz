@@ -1,0 +1,32 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    padding: 10vw 28vw .25vw 28vw;
+    border-style: solid;
+ 
+}
+
+.titleSpot {
+    font-size: 9vh;
+    width: 44vw;
+    text-align: center;
+    border-style: solid;
+
+}
+
+.container {
+    padding: 0vw 28vw 1vw 28vw;
+    border-style: solid;
+
+}
+
+.intro {
+    font-size: 4vh;
+    text-align: center;
+
+}
+
+.startStateButtons {
+    padding: .5vw 0 0 0 
+
+}
