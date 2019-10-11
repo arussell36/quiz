@@ -1,21 +1,83 @@
 // VARIABLES,
     // questions
-        // an array of questions
-        // question = string
-        // choices = array
-        // answer = string
-        // key = number (to store to LS)
+var questions = [
+    {
+        title: "1.) What is the overall end point/goal of the game?",
+        choices: ["to escape planet", "to colonize tribes", "to survey for resources", "to start a new world"],
+        answer: "to escape planet"
+    },
+    {
+        title: "The condition in an if / else statement is enclosed within ____.",
+        choices: ["quotes", "curly brackets", "parentheses", "square brackets"],
+        answer: "parentheses"
+    }];
+
+var questionCount = 0;
+
+
+    // an array of questions
+    // question = string
+    // choices = array
+    // answer = string
+    // key = number (to store to LS)
 
     // answers
 
 
-// HELPER FUNCTIONS
+// HELPER FUNCTIONS ---------------------------------------------------------------------------
+
+// you suck checker alert lol
+function youSuck() {
+    alert("yousuck");
+}
+
+function startState() {
+    // youSuck();
+    $("#questionSpot").html("These questions will test your knowledge on surviving Rimworld. Topics that will be covered range from colony sustenance, hostile planet inhabitants, and R&D while you're on the field. Good luck!");
+};
 
 
 
-// EVENTS
+
+
+
+
+// EVENTS ---------------------------------------------------------------------------------------
     // 1. click start quiz button
-        // >> moves you to the first question (step3)
+        // >> moves you to the first question (step3)  
+
+$("#startQuizButton").on("click", function(){
+    // youSuck();
+    $(".startStateButtons").empty();
+    $("#questionSpot").empty();
+    $("#quizHeader").empty();
+    // ^^^ all functions clear out the current spots to make way for the new data ---------------
+
+
+    var questionGen = $("<div>");
+    questionGen.addClass("questions");
+    questionGen.html(questions[0].title);
+    $("#questionSpot").append(questionGen);
+    
+
+    for (i = 0; i < questions[0].choices.length; i++) {
+
+        var answerTable = $("<div>");
+        answerTable.addClass("questionText");
+        $("#answerSpot").append(answerTable);
+        var answersGen = $("<button>");
+        answersGen.html("hoyooyoyyoy");
+        $(answerTable).append(answersGen);
+
+        
+    };
+        
+    
+   
+
+})
+
+
 
     // 2. click high score button
         // 2b. clear high scores button
@@ -31,4 +93,6 @@
 
 
 
-// INIT
+// INIT -----------------------------------------------------------------------------------------
+
+startState ();

@@ -6,20 +6,20 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" type="text/css" href="./style.css">
     <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    
 </head>
 <body>
+
+
 <!-- HEADER -->
     <header class="header">
-        <div class="titleSpot" id="questionLocation">
+        <div class="titleSpot" id="quizHeader">
             Rimworld Quiz
 
         </div>
         
         <!-- timer  -->
-    
-
-
-
 
 
     </header>
@@ -27,19 +27,22 @@
     <section class="container">
         
          <!-- CONTENT (initial state DIV) -->
-        <div class="intro" id="answers">
-            These questions will test your knowledge on surviving Rimworld.  Topics that will be covered range from colony sustenance, hostile planet inhabitants, and 
-            R&D while you're on the field. Good luck!
-            
-            <div class="startStateButtons">
+        <div class="intro" id="questionSpot">
+            <!--  -->
+        </div>
+        <div class="intro" id="answerSpot">
+            <!--  -->
+        </div>
+                
+            <div class="startStateButtons intro">
                 <!-- button to start the quiz----------------------------------------------------------->
-                    <button>Start</button> 
+                    <button id="startQuizButton">Start</button> 
 
 
                 <!-- button to view high scores -------------------------------------------------------->
-                    <button>High Scores</button>
+                    <button id="highScore">High Scores</button>
             </div>
-        </div>
+        
             
           
         <!-- ^description^ -->
@@ -55,5 +58,7 @@
 
         </div>
     </section>
+
+    <script src="./script.js"></script>   
 </body>
 </html>
