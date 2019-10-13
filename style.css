@@ -37,9 +37,14 @@
 
 }
 
-.questionText {
+.questionDiv {
     font-size: 2.5vh;
     text-align: left; 
+    padding: .5vw 0 0 0;
     
+}
 
+.questionText {
+    font-size: 2.5vh;
+    
 }
