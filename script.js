@@ -61,10 +61,10 @@ var totalTime = 0;
 function startTimer() {
     var setTime = 60;
     var timeSpent = 0;
-    var interval = setInterval(function () {      
+    setInterval(function () {      
         timeSpent = timeSpent + 1;
         totalTime = setTime - timeSpent;
-        console.log(totalTime);  
+        // console.log(totalTime);  
         $("#timerSpot").text(totalTime + " time left");      
     }, 1000);
     
@@ -112,12 +112,19 @@ $("#startQuiz").on("click", function() {
         var answerTable = $("<div>").addClass("questionDiv");
         $("#answerSpot").append(answerTable);
         // creates a table that the new child elements can attach to with the correct formating -----------
-        var answersGen = $("<button>").addClass("questionText").attr("id", "nextQuestion");
-        answersGen.html(questions[questionCount].choices[i]);
-        $(answerTable).append(answersGen);
+        if (i === 1) {
+            var answersGen = $("<button>").addClass("questionText").attr("id", "nextQuestion1")
+            answersGen.html(questions[questionCount].choices[i]);
+        } else {
+            var answersGen = $("<button>").addClass("questionText").attr("id", "nextQuestion")
+            answersGen.html(questions[questionCount].choices[i]);
+        }
 
+        $(answerTable).append(answersGen);
         };      
         questionCount = 1;
+
+
         // console.log(questionCount);
 });
 
@@ -153,23 +160,81 @@ $("#answerSpot").on("click","#nextQuestion", function() {
 
 
     for (i = 0; i < questions[questionCount].choices.length; i++) {
-
+        console.log(questions[questionCount].choices);   
         var answerTable = $("<div>").addClass("questionDiv");
         $("#answerSpot").append(answerTable);
         // creates a table that the new child elements can attach to with the correct formating -----------
-        var answersGen = $("<button>").addClass("questionText").attr("id", "nextQuestion");
-        answersGen.html(questions[questionCount].choices[i]);
+        
+        if (i === 1) {
+            var answersGen = $("<button>").addClass("questionText").attr("id", "nextQuestion1")
+            answersGen.html(questions[questionCount].choices[i]);
+        } else {
+            var answersGen = $("<button>").addClass("questionText").attr("id", "nextQuestion")
+            answersGen.html(questions[questionCount].choices[i]);
+        }
+
         $(answerTable).append(answersGen);
 
         if (questionCount === 5) {
             answersGen.attr("id", "lastQuestion");
         };
 
-        };      
-        questionCount = questionCount + 1;
-        console.log(questionCount);
+
+
+        // if (questions[questionGen].choice[i] = 1)
+        //     answersGen.attr("id", "nextQuestion 1");
+
+        // console.log(questionCount);
+    }
+
+    questionCount = questionCount + 1;
 
 });
+
+$("#answerSpot").on("click","#nextQuestion1", function() {
+    // youSuck();
+        
+    $("#questionSpot").empty();
+    $("#answerSpot").empty();
+
+    var questionGen = $("<div>").addClass("questions");
+    questionGen.html(questions[questionCount].title);
+    $("#questionSpot").append(questionGen);
+
+
+    for (i = 0; i < questions[questionCount].choices.length; i++) {
+        console.log(questions[questionCount].choices);   
+        var answerTable = $("<div>").addClass("questionDiv");
+        $("#answerSpot").append(answerTable);
+        // creates a table that the new child elements can attach to with the correct formating -----------
+        
+        if (i === 1) {
+            var answersGen = $("<button>").addClass("questionText").attr("id", "nextQuestion1")
+            answersGen.html(questions[questionCount].choices[i]);
+        } else {
+            var answersGen = $("<button>").addClass("questionText").attr("id", "nextQuestion")
+            answersGen.html(questions[questionCount].choices[i]);
+        }
+
+        $(answerTable).append(answersGen);
+
+        if (questionCount === 5) {
+            answersGen.attr("id", "lastQuestion");
+        };
+
+
+
+        // if (questions[questionGen].choice[i] = 1)
+        //     answersGen.attr("id", "nextQuestion 1");
+
+        // console.log(questionCount);
+    }
+
+    questionCount = questionCount + 1;
+
+});
+
+
 
 
 
@@ -209,7 +274,7 @@ $("#answerSpot").on("click",".storeLS", function() {
 
     var storedName = $("#names").val();
     localStorage.setItem("people", storedName);
-    console.log(storedName);
+    // console.log(storedName);
 
 });
 
