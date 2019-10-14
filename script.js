@@ -56,9 +56,19 @@ function init() {
     $("#questionSpot").html("These questions will test your knowledge on surviving Rimworld. Topics that will be covered range from colony sustenance, hostile planet inhabitants, and R&D while you're on the field. Good luck!");
 };
 
+var totalTime = 0;
 
-
-
+function startTimer() {
+    var setTime = 60;
+    var timeSpent = 0;
+    var interval = setInterval(function () {      
+        timeSpent = timeSpent + 1;
+        totalTime = setTime - timeSpent;
+        console.log(totalTime);  
+        $("#timerSpot").text(totalTime + " time left");      
+    }, 1000);
+    
+  }
 
 
 
@@ -78,13 +88,19 @@ function init() {
 
 $("#startQuiz").on("click", function() {
     // youSuck();
-    
 
+
+    setInterval(startTimer(), 1000);
     $(".startStateButtons").empty();
     $("#questionSpot").empty();
     $("#quizHeader").empty();
     $("#answerSpot").empty();
     // ^^^ all functions clear out the current spots to make way for the new data ------------------------
+
+
+
+
+
 
     var questionGen = $("<div>").addClass("questions");
     questionGen.html(questions[questionCount].title);
@@ -99,7 +115,6 @@ $("#startQuiz").on("click", function() {
         var answersGen = $("<button>").addClass("questionText").attr("id", "nextQuestion");
         answersGen.html(questions[questionCount].choices[i]);
         $(answerTable).append(answersGen);
-
 
         };      
         questionCount = 1;
