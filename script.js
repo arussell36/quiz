@@ -311,7 +311,7 @@ $("#answerSpot").on("click","#lastQuestion1", function() {
 
 
     var scoreDiv = $("<div>").addClass("questionDiv");
-    scoreDiv.html("Your Overall Score Is ");
+    scoreDiv.html("Your Overall Score Is " + overallScore);
     $("#answerSpot").append(scoreDiv);
 
 
@@ -347,6 +347,42 @@ $("#answerSpot").on("click",".storeLS", function() {
 
 
 $("#answerSpot").on("click","#highScore", function() {
+    // youSuck();
+
+    // console.log(finalArray);
+    $(".startStateButtons").empty();
+    $("#questionSpot").empty();
+    $("#quizHeader").empty();
+    $("#answerSpot").empty();
+
+    var subjectHeader = $("<div>").addClass("questions");
+    subjectHeader.html("Rimworld High Scores");
+    $("#questionSpot").append(subjectHeader);
+
+
+    for (i = 0; i < finalArray.length; i++) {
+
+        var scoreName = $("<li>").attr("class", "questionDiv");
+        scoreName.text(finalArray[i]);
+        $("#answerSpot").append(scoreName);
+    
+
+    };
+        
+
+    var startQuiz = $("<button>").attr("id", "home");
+    var clearScores = $("<button>").attr("id", "wipe");
+    startQuiz.text("Home");
+    clearScores.text("Clear Scores");
+
+    $(".startStateButtons").append(startQuiz);
+    $(".startStateButtons").append(clearScores);
+
+
+});
+
+
+$(".startStateButtons").on("click","#highScore", function() {
     // youSuck();
 
     // console.log(finalArray);
