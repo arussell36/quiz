@@ -164,24 +164,37 @@ $("#answerSpot").on("click","#lastQuestion", function() {
     $("#questionSpot").empty();
     $("#answerSpot").empty();
 
-    var questionGen = $("<div>").addClass("questions");
-    questionGen.html("Quiz Complete!");
-    $("#questionSpot").append(questionGen);
+    var subjectHeader = $("<div>").addClass("questions");
+    subjectHeader.html("Quiz Complete!");
+    $("#questionSpot").append(subjectHeader);
 
 
     var scoreDiv = $("<div>").addClass("questionDiv");
     scoreDiv.html("Your Overall Score Is ");
     $("#answerSpot").append(scoreDiv);
 
-    var nameForm = $("<form>").addClass("questionDiv");
-    var nameSpot = $("<input>").attr("type", "text", "name", "Initials");
-    var submitForm = $("<input>").attr("type", "submit").attr("id", "highScore");
 
-    $("#answerSpot").append(nameForm);
-    $(nameForm).append(nameSpot);
-    $(nameForm).append(submitForm);
+    var scoreTable = $("<div>").attr("class", "questionDiv");
+    var nameSpot = $("<input>").attr("type", "text").attr("id", "names");
+    var submitForm = $("<button>").attr("id", "highScore").attr("class", "storeLS");
+    submitForm.text("Submit");
+
+    $("#answerSpot").append(scoreTable);
+    $(scoreTable).append(nameSpot);
+    $(scoreTable).append(submitForm);
 
 
+});
+
+
+
+// -------- SAVES ENTERED INFO AND THEN CLEARS THE PAGE FOR HS --------------------------------------------------------
+$("#answerSpot").on("click",".storeLS", function() {
+    // youSuck();
+
+    var storedName = $("#names").val();
+    localStorage.setItem("people", storedName);
+    console.log(storedName);
 
 });
 
@@ -189,13 +202,40 @@ $("#answerSpot").on("click","#lastQuestion", function() {
 $("#answerSpot").on("click","#highScore", function() {
     // youSuck();
 
+    $(".startStateButtons").empty();
     $("#questionSpot").empty();
+    $("#quizHeader").empty();
     $("#answerSpot").empty();
 
-    
+    var subjectHeader = $("<div>").addClass("questions");
+    subjectHeader.html("Rimworld High Scores");
+    $("#questionSpot").append(subjectHeader);
 
+    var scoreName = $("<div>").attr("class", "questionText");
+    scoreName.text(localStorage.getItem("people"));
+    $("#answerSpot").append(scoreName);
 
+    var score = $("<span>").attr("class", "questionText hsText");
+    score.text(" 69")
+    $(scoreName).append(score);
 });
+
+
+// $(".startStateButtons").on("click","#highScore", function() {
+//     // youSuck();
+
+//     var storedName = $("#names").html();
+//     localStorage.setItem("name", storedName);
+//     console.log(storedName);
+
+//     $("#questionSpot").empty();
+//     $("#answerSpot").empty();
+
+//     var subjectHeader = $("<div>").addClass("questions");
+//     subjectHeader.html("Rimworld High Scores");
+//     $("#questionSpot").append(subjectHeader);
+
+// });
 
 
  
