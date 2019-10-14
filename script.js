@@ -73,28 +73,26 @@ function init() {
 
 
 var totalTime = 0;
+var timerVar = "";
 
 function startTimer() {
+    totalTime = 0;
     var setTime = 60;
     var timeSpent = 0;
     var timerDiv = $("<div>").attr("id", "time");
     $("#timerSpot").append(timerDiv);
-    if (questionCount < 2) {
-
-        setInterval(function () {      
-            timeSpent = timeSpent + 1;
-            totalTime = setTime - timeSpent;
-            // console.log(totalTime);  
-            $("#time").text(totalTime + " time left");      
+    timerVar = setInterval(function () {      
+        timeSpent = timeSpent + 1;
+        totalTime = setTime - timeSpent;
+        // console.log(totalTime);  
+        $("#time").text(totalTime + " time left");      
         }, 1000);
-        
-      };
-
+    
     };
 
-function stopTimer() {
-    clearInterval();
-}
+        
+
+    
     
 
 
@@ -271,11 +269,10 @@ var overallScore = "";
 $("#answerSpot").on("click","#lastQuestion", function() {
     // youSuck();
 
-    overallScore = totalTime
+    overallScore = totalTime;
     
     $("#questionSpot").empty();
     $("#answerSpot").empty();
-    stopTimer();
     $("#timerSpot").empty();
 
     var subjectHeader = $("<div>").addClass("questions");
@@ -284,7 +281,7 @@ $("#answerSpot").on("click","#lastQuestion", function() {
 
 
     var scoreDiv = $("<div>").addClass("questionDiv");
-    scoreDiv.html("Your Overall Score Is ");
+    scoreDiv.html("Your Overall Score Is " + overallScore);
     $("#answerSpot").append(scoreDiv);
 
 
@@ -306,7 +303,6 @@ $("#answerSpot").on("click","#lastQuestion1", function() {
 
     $("#questionSpot").empty();
     $("#answerSpot").empty();
-    stopTimer();
     $("#timerSpot").empty();
 
     var subjectHeader = $("<div>").addClass("questions");
@@ -388,6 +384,7 @@ $("#answerSpot").on("click","#highScore", function() {
 
 $(".startStateButtons").on("click","#home", function() {
     init();
+    clearInterval(timerVar);
 });
 
 $(".startStateButtons").on("click","#wipe", function() {
