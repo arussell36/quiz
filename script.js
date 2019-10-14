@@ -52,27 +52,50 @@ function youSuck() {
 };
 
 function init() {
+    questionCount = 0;
     // youSuck();
+    $(".startStateButtons").empty();
+    $("#questionSpot").empty();
+    $("#quizHeader").empty();
+    $("#answerSpot").empty();
+
+
     $("#questionSpot").html("These questions will test your knowledge on surviving Rimworld. Topics that will be covered range from colony sustenance, hostile planet inhabitants, and R&D while you're on the field. Good luck!");
+    $("#quizHeader").html("Rimworld Quiz");
+    var startQuiz = $("<button>").attr("id", "startQuiz").text("Start Quiz");
+    var highScore = $("<button>").attr("id", "highScore").text("High Scores");
+    $(".startStateButtons").append(startQuiz);
+    $(".startStateButtons").append(highScore);
+
+
 };
+
+
 
 var totalTime = 0;
 
 function startTimer() {
     var setTime = 60;
     var timeSpent = 0;
-    setInterval(function () {      
-        timeSpent = timeSpent + 1;
-        totalTime = setTime - timeSpent;
-        // console.log(totalTime);  
-        $("#timerSpot").text(totalTime + " time left");      
-    }, 1000);
+    var timerDiv = $("<div>").attr("id", "time");
+    $("#timerSpot").append(timerDiv);
+    if (questionCount < 2) {
+
+        setInterval(function () {      
+            timeSpent = timeSpent + 1;
+            totalTime = setTime - timeSpent;
+            // console.log(totalTime);  
+            $("#time").text(totalTime + " time left");      
+        }, 1000);
+        
+      };
+
+    };
+
+function stopTimer() {
+    clearInterval();
+}
     
-  }
-
-
-
-
 
 
 // EVENTS -------------------------------------------------------------------------------------------------
@@ -86,7 +109,7 @@ function startTimer() {
 
 
 
-$("#startQuiz").on("click", function() {
+$(".startStateButtons").on("click","#startQuiz", function() {
     // youSuck();
 
 
@@ -154,13 +177,15 @@ $("#answerSpot").on("click","#nextQuestion", function() {
     $("#questionSpot").empty();
     $("#answerSpot").empty();
 
+    // console.log(totalTime);
+
     var questionGen = $("<div>").addClass("questions");
     questionGen.html(questions[questionCount].title);
     $("#questionSpot").append(questionGen);
 
 
     for (i = 0; i < questions[questionCount].choices.length; i++) {
-        console.log(questions[questionCount].choices);   
+        // console.log(questions[questionCount].choices);   
         var answerTable = $("<div>").addClass("questionDiv");
         $("#answerSpot").append(answerTable);
         // creates a table that the new child elements can attach to with the correct formating -----------
@@ -197,13 +222,16 @@ $("#answerSpot").on("click","#nextQuestion1", function() {
     $("#questionSpot").empty();
     $("#answerSpot").empty();
 
+    totalTime = totalTime + 5;
+    // console.log(totalTime)
+
     var questionGen = $("<div>").addClass("questions");
     questionGen.html(questions[questionCount].title);
     $("#questionSpot").append(questionGen);
 
 
     for (i = 0; i < questions[questionCount].choices.length; i++) {
-        console.log(questions[questionCount].choices);   
+        // console.log(questions[questionCount].choices);   
         var answerTable = $("<div>").addClass("questionDiv");
         $("#answerSpot").append(answerTable);
         // creates a table that the new child elements can attach to with the correct formating -----------
@@ -218,7 +246,9 @@ $("#answerSpot").on("click","#nextQuestion1", function() {
 
         $(answerTable).append(answersGen);
 
-        if (questionCount === 5) {
+        if (questionCount === 5 && i === 1) {
+            answersGen.attr("id", "lastQuestion1");
+        } else if (questionCount === 5) {
             answersGen.attr("id", "lastQuestion");
         };
 
@@ -235,14 +265,49 @@ $("#answerSpot").on("click","#nextQuestion1", function() {
 });
 
 
-
+var overallScore = "";
 
 
 $("#answerSpot").on("click","#lastQuestion", function() {
     // youSuck();
 
+    overallScore = totalTime
+    
     $("#questionSpot").empty();
     $("#answerSpot").empty();
+    stopTimer();
+    $("#timerSpot").empty();
+
+    var subjectHeader = $("<div>").addClass("questions");
+    subjectHeader.html("Quiz Complete!");
+    $("#questionSpot").append(subjectHeader);
+
+
+    var scoreDiv = $("<div>").addClass("questionDiv");
+    scoreDiv.html("Your Overall Score Is ");
+    $("#answerSpot").append(scoreDiv);
+
+
+    var scoreTable = $("<div>").attr("class", "questionDiv");
+    var nameSpot = $("<input>").attr("type", "text").attr("id", "names");
+    var submitForm = $("<button>").attr("id", "highScore").attr("class", "storeLS");
+    submitForm.text("Submit");
+
+    $("#answerSpot").append(scoreTable);
+    $(scoreTable).append(nameSpot);
+    $(scoreTable).append(submitForm);
+
+
+});
+
+$("#answerSpot").on("click","#lastQuestion1", function() {
+    // youSuck();
+    overallScore = totalTime + 5;
+
+    $("#questionSpot").empty();
+    $("#answerSpot").empty();
+    stopTimer();
+    $("#timerSpot").empty();
 
     var subjectHeader = $("<div>").addClass("questions");
     subjectHeader.html("Quiz Complete!");
@@ -267,13 +332,19 @@ $("#answerSpot").on("click","#lastQuestion", function() {
 });
 
 
+var finalArray = [];
 
 // -------- SAVES ENTERED INFO AND THEN CLEARS THE PAGE FOR HS --------------------------------------------------------
 $("#answerSpot").on("click",".storeLS", function() {
     // youSuck();
 
     var storedName = $("#names").val();
-    localStorage.setItem("people", storedName);
+    var storedFinal = storedName + " " + overallScore;
+    
+    finalArray.push(storedFinal);
+
+    localStorage.setItem("people", finalArray);
+    
     // console.log(storedName);
 
 });
@@ -282,6 +353,7 @@ $("#answerSpot").on("click",".storeLS", function() {
 $("#answerSpot").on("click","#highScore", function() {
     // youSuck();
 
+    // console.log(finalArray);
     $(".startStateButtons").empty();
     $("#questionSpot").empty();
     $("#quizHeader").empty();
@@ -291,13 +363,36 @@ $("#answerSpot").on("click","#highScore", function() {
     subjectHeader.html("Rimworld High Scores");
     $("#questionSpot").append(subjectHeader);
 
-    var scoreName = $("<div>").attr("class", "questionText");
-    scoreName.text(localStorage.getItem("people"));
-    $("#answerSpot").append(scoreName);
 
-    var score = $("<span>").attr("class", "questionText hsText");
-    score.text(" 69")
-    $(scoreName).append(score);
+    for (i = 0; i < finalArray.length; i++) {
+
+        var scoreName = $("<li>").attr("class", "questionDiv");
+        scoreName.text(finalArray[i]);
+        $("#answerSpot").append(scoreName);
+    
+
+    };
+        
+
+    var startQuiz = $("<button>").attr("id", "home");
+    var clearScores = $("<button>").attr("id", "wipe");
+    startQuiz.text("Home");
+    clearScores.text("Clear Scores");
+
+    $(".startStateButtons").append(startQuiz);
+    $(".startStateButtons").append(clearScores);
+
+
+});
+
+
+$(".startStateButtons").on("click","#home", function() {
+    init();
+});
+
+$(".startStateButtons").on("click","#wipe", function() {
+    localStorage.clear();
+    $("#answerSpot").empty();
 });
 
 
