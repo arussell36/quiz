@@ -146,6 +146,9 @@ $("#answerSpot").on("click","#nextQuestion", function() {
         answersGen.html(questions[questionCount].choices[i]);
         $(answerTable).append(answersGen);
 
+        if (questionCount === 5) {
+            answersGen.attr("id", "lastQuestion");
+        };
 
         };      
         questionCount = questionCount + 1;
@@ -155,7 +158,44 @@ $("#answerSpot").on("click","#nextQuestion", function() {
 
 
 
+$("#answerSpot").on("click","#lastQuestion", function() {
+    // youSuck();
 
+    $("#questionSpot").empty();
+    $("#answerSpot").empty();
+
+    var questionGen = $("<div>").addClass("questions");
+    questionGen.html("Quiz Complete!");
+    $("#questionSpot").append(questionGen);
+
+
+    var scoreDiv = $("<div>").addClass("questionDiv");
+    scoreDiv.html("Your Overall Score Is ");
+    $("#answerSpot").append(scoreDiv);
+
+    var nameForm = $("<form>").addClass("questionDiv");
+    var nameSpot = $("<input>").attr("type", "text", "name", "Initials");
+    var submitForm = $("<input>").attr("type", "submit").attr("id", "highScore");
+
+    $("#answerSpot").append(nameForm);
+    $(nameForm).append(nameSpot);
+    $(nameForm).append(submitForm);
+
+
+
+});
+
+
+$("#answerSpot").on("click","#highScore", function() {
+    // youSuck();
+
+    $("#questionSpot").empty();
+    $("#answerSpot").empty();
+
+    
+
+
+});
 
 
  
